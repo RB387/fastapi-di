@@ -1,6 +1,6 @@
 import os
 from dataclasses import field
-from typing import Any, Callable
+from typing import Any, Callable, Union
 
 MISSING = object()
 
@@ -37,7 +37,7 @@ def field_float(env_var: str, **kwargs):
     return env_field(env_var, float, **kwargs)
 
 
-def _bool(val: str | bool) -> bool:
+def _bool(val: Union[str, bool]) -> bool:
     if isinstance(val, bool):
         return val
 

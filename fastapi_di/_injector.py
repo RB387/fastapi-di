@@ -8,6 +8,7 @@ from typing import (
     TypeVar,
     get_type_hints,
     Callable,
+    Union,
 )
 
 from fastapi_di._client import ClientProtocol
@@ -36,7 +37,7 @@ class DependencyInjector:
     _deps: dict[Type[T], T] = field(init=False, default_factory=dict)  # type: ignore
     _postponed: list[Type[T]] = field(init=False, default_factory=list)
 
-    def inject(self, obj: Type[T] | Callable) -> T | Callable:
+    def inject(self, obj: Union[Type[T], Callable]) -> Union[T, Callable]:
         obj = self.bindings.get(obj, obj)
 
         if instance := self._deps.get(obj):
