@@ -1,4 +1,4 @@
-# fastapi-di
+# FastAPI Magic DI
 Dependency Injector for FastAPI that makes your life easier
 
 
