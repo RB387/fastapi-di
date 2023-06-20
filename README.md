@@ -4,10 +4,14 @@ Dependency Injector for FastAPI that makes your life easier
 
 What are the problems with FastAPI’s dependency injector? 
 1) It forces you to use global variables. 
-2) It is hard to test. For example, what if you need to mock only one embedded dependency?  
+2) You need to write an endless number of fabrics with startup logic
 3) It makes your project highly dependent on FastAPI’s injector by using “Depends” everywhere.
 
 To solve these problems, you can use this dead-simple Dependency Injector that will make development so much easier.
+
+__Q: But why not to use [python-dependency-injector](https://github.com/ets-labs/python-dependency-injector) or other libs?__
+
+A: The goal of this Dependency Injector is to __reduce the amount of code as much as possible__ and get rid of enterprise code with millions of configs, containers, and fabrics. That’s why python-dependency-injector and similar libraries are overkill. The philosophy of this injector is that clients know how to configure themselves and perform all startup routines.
 
 * [Install](#install)
 * [Getting Started](#getting-started)
