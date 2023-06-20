@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "fastapi-di"
+version = "0.1.0"
+description = "Dependency Injector for FastAPI that makes your life easier"
+authors = ["Nikita Zavadin <zavadin142@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "fastapi_di"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+fastapi = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.3.2"
+pytest-asyncio = "^0.21.0"
+httpx = "^0.24.1"
+ruff = "^0.0.272"
+black = "^23.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
