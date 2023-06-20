@@ -9,6 +9,7 @@ What are the problems with FastAPI’s dependency injector?
 
 To solve these problems, you can use this dead-simple Dependency Injector that will make development so much easier.
 
+* [Install](#install)
 * [Getting Started](#getting-started)
 * [Clients Configuration](#clients-configuration)
   * [Zero config clients](#zero-config-clients)
@@ -16,6 +17,11 @@ To solve these problems, you can use this dead-simple Dependency Injector that w
 * [Using interfaces instead of implementations](#using-interfaces-instead-of-implementations)
 * [Testing](#testing)
 
+
+## Install
+```bash
+pip install fastapi-magic-di
+```
 
 ## Getting Started
 
