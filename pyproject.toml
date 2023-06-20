@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-magic-di"
-version = "0.0.1a1"
+version = "0.0.1a2"
 description = "Dependency Injector for FastAPI that makes your life easier"
 authors = ["Nikita Zavadin <zavadin142@gmail.com>"]
 license = "MIT"

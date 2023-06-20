@@ -3,10 +3,10 @@ from typing import Protocol
 
 import pytest
 
-from fastapi_di import ClientProtocol, DependencyInjector
+from fastapi_di import BaseClient, DependencyInjector
 
 
-class Connectable(ClientProtocol):
+class Connectable(BaseClient):
     connected: bool = False
 
     async def __connect__(self):
