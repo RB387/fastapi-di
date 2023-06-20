@@ -37,7 +37,7 @@ class AsyncWorkers(Connectable):
 @dataclass
 class Service(Connectable):
     repo: Repository
-    workers: AsyncWorkers
+    workers: AsyncWorkers | None
 
     def is_alive(self):
         return bool(self.repo and self.workers)

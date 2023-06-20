@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "fastapi-magic-di"
-version = "0.0.1a0"
+version = "0.0.1a1"
 description = "Dependency Injector for FastAPI that makes your life easier"
 authors = ["Nikita Zavadin <zavadin142@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "fastapi_di"}]
+packages = [{include = "fastapi_di"}, {include = "fastapi_di/py.typed"}]
 
 [tool.poetry.dependencies]
 python = ">=3.9"

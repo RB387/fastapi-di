@@ -57,7 +57,7 @@ class Service(ClientProtocol):
     
 
 @app.get(path="/hello-world")
-def hello_world(service: Provide(Service)) -> dict:
+def hello_world(service: Provide[Service]) -> dict:
     return {
         "is_connected": service.is_connected()
     }
@@ -170,7 +170,7 @@ injector.bind({MyInterface: MyInterfaceImplementation})
 
 
 @app.get(path="/hello-world")
-def hello_world(service: Provide(MyInterface)) -> dict:
+def hello_world(service: Provide[MyInterface]) -> dict:
     return {
         "result": service.do_something(),
     }

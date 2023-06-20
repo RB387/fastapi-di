@@ -1,4 +1,4 @@
-from typing import TypeVar, Annotated, Type
+from typing import TypeVar, Annotated, Type, TYPE_CHECKING
 
 from fastapi import Depends
 
@@ -7,11 +7,19 @@ from fastapi_di._injector import injector as default_injector, DependencyInjecto
 T = TypeVar("T")
 
 
-def create_provider(injector: DependencyInjector):
-    def _provide(obj: Type[T]) -> Type[T]:
-        return Annotated[obj, Depends(injector.lazy_inject(obj))]
+class _Provider:
+    def __init__(self, injector: DependencyInjector):
+        self.injector = injector
 
-    return _provide
+    def __getitem__(self, obj: Type[T]) -> Type[T]:
+        return Annotated[obj, Depends(self.injector.lazy_inject(obj))]
 
 
-Provide = create_provider(default_injector)
+def create_provider(injector: DependencyInjector) -> _Provider:
+    return _Provider(injector)
+
+
+if TYPE_CHECKING:
+    from typing import Union as Provide  # hack for mypy
+else:
+    Provide = create_provider(default_injector)

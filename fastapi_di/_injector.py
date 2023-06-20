@@ -2,14 +2,8 @@ import logging
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from functools import partial
-from typing import (
-    Any,
-    Type,
-    TypeVar,
-    get_type_hints,
-    Callable,
-    Union,
-)
+from types import UnionType
+from typing import Any, Type, TypeVar, get_type_hints, Callable, Union, get_args
 
 from fastapi_di._client import ClientProtocol
 
@@ -22,6 +16,22 @@ def is_client(cls: Type[ClientProtocol]) -> bool:
 
 
 T = TypeVar("T")
+
+
+def _get_cls_from_optional(cls: Type[T]) -> Type[T]:
+    if not isinstance(cls, UnionType):
+        return cls
+
+    args = get_args(cls)
+    if len(args) != 2:
+        raise ValueError(
+            "Dependency injector doesn't support such complex hints. "
+            "Supported only 'Union[cls, None]', 'cls | None', 'Optional[cls]'"
+        )
+
+    for typo in args:
+        if not issubclass(typo, type(None)):
+            return typo
 
 
 def _is_class(obj: Any) -> bool:
@@ -38,6 +48,7 @@ class DependencyInjector:
     _postponed: list[Type[T]] = field(init=False, default_factory=list)
 
     def inject(self, obj: Union[Type[T], Callable]) -> Union[T, Callable]:
+        obj = _get_cls_from_optional(obj)
         obj = self.bindings.get(obj, obj)
 
         if instance := self._deps.get(obj):
@@ -51,8 +62,10 @@ class DependencyInjector:
         clients = {}
 
         for name, hint in hints.items():
-            bound_obj_for_hint = self.bindings.get(hint, hint)
-            if not is_client(bound_obj_for_hint):
+            hint = _get_cls_from_optional(hint)
+            hint = self.bindings.get(hint, hint)
+
+            if not is_client(hint):
                 continue
 
             instance = self.inject(hint)

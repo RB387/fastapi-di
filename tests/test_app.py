@@ -10,7 +10,7 @@ def test_app_injection(injector):
     app = FastAPI()
 
     @app.get(path="/hello-world")
-    def hello_world(service: Provide(Service), some_query: str) -> dict:
+    def hello_world(service: Provide[Service], some_query: str) -> dict:
         assert isinstance(service, Service)
         return {"query": some_query, "is_alive": service.is_alive()}
 
@@ -24,7 +24,7 @@ def test_app_injection_clients_connect(injector):
     app = FastAPI()
 
     @app.get(path="/hello-world")
-    def hello_world(service: Provide(Service)) -> dict:
+    def hello_world(service: Provide[Service]) -> dict:
         return {
             "service_connected": service.connected,
             "workers_connected": service.workers.connected,
