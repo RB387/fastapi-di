@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Protocol
+from typing import Protocol, Union
 
 import pytest
 
@@ -37,7 +37,7 @@ class AsyncWorkers(Connectable):
 @dataclass
 class Service(Connectable):
     repo: Repository
-    workers: AsyncWorkers | None
+    workers: Union[AsyncWorkers, None]
 
     def is_alive(self):
         return bool(self.repo and self.workers)

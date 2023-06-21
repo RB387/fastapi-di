@@ -4,10 +4,12 @@ from dataclasses import dataclass, field
 from functools import partial
 from typing import Any, Type, TypeVar, get_type_hints, Callable, Union, get_args
 
+LegacyUnionType = type(Union[object, None])
+
 try:
     from types import UnionType
 except ImportError:
-    UnionType = type(Union[object, None])
+    UnionType = LegacyUnionType
 
 from fastapi_di._client import ClientProtocol
 
@@ -23,7 +25,7 @@ T = TypeVar("T")
 
 
 def _get_cls_from_optional(cls: Type[T]) -> Type[T]:
-    if not isinstance(cls, UnionType):
+    if not isinstance(cls, (UnionType, LegacyUnionType)):
         return cls
 
     args = get_args(cls)
