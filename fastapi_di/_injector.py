@@ -3,6 +3,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from functools import partial
 from typing import Any, Type, TypeVar, get_type_hints, Callable, Union, get_args
+from fastapi_di._client import ClientProtocol
 
 LegacyUnionType = type(Union[object, None])
 
@@ -10,8 +11,6 @@ try:
     from types import UnionType
 except ImportError:
     UnionType = LegacyUnionType
-
-from fastapi_di._client import ClientProtocol
 
 
 def is_client(cls: Type[ClientProtocol]) -> bool:
