@@ -2,8 +2,12 @@ import logging
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from functools import partial
-from types import UnionType
 from typing import Any, Type, TypeVar, get_type_hints, Callable, Union, get_args
+
+try:
+    from types import UnionType
+except ImportError:
+    UnionType = type(Union[object, None])
 
 from fastapi_di._client import ClientProtocol
 
