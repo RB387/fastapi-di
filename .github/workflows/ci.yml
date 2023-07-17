@@ -24,10 +24,9 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install --no-interaction
-      - name: Lint with black
-        run: |
-          poetry run black fastapi_di
-          poetry run black tests
+      - name: Run pre-commit
+        id: run-pre-commit
+        uses: pre-commit/action@v3.0.0
       - name: Test with pytest
         run: |
           poetry run pytest
